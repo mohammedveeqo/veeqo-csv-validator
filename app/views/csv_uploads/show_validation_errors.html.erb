@@ -1,0 +1,23 @@
+<div class="validation-container">
+  <h1>Validation Errors</h1>
+  <% if @errors.any? %>
+    <% grouped_errors = @errors.group_by { |error| error.split(':').first } %>
+    <% grouped_errors.each do |row, messages| %>
+      <div class="error-box">
+        <h2><%= row %></h2>
+        <ul>
+          <% messages.each do |message| %>
+            <li>
+              <span class="error-icon">⚠️</span>
+              <%= message.split(':').last.strip %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="success-box">
+      <p>✅ No validation errors found. Your CSV is ready to upload!</p>
+    </div>
+  <% end %>
+</div>

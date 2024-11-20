@@ -1,0 +1,30 @@
+<div class="container">
+  <header class="header">
+    <h1>Veeqo CSV Validator</h1>
+    <p>Validate and upload CSV files efficiently and error-free.</p>
+  </header>
+
+  <% if flash[:error] %>
+    <div class="alert alert-danger"><%= flash[:error] %></div>
+  <% end %>
+  
+  <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+
+  <div class="form-container">
+    <%= form_with model: CsvUpload.new, url: csv_uploads_path, html: { multipart: true } do |f| %>
+      <div class="form-group">
+        <%= f.label :file, "Upload CSV File" %>
+        <%= f.file_field :file, required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :type, "File Type" %>
+        <%= f.select :type, ['Purchase Order', 'Supplier', 'Product', 'Order'], prompt: "Select Type", required: true %>
+      </div>
+
+      <%= f.submit "Validate CSV", class: "btn-submit" %>
+    <% end %>
+  </div>
+</div>

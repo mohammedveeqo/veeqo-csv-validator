@@ -1,0 +1,25 @@
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.0.0/gems/io-console-0.7.2/ext/io/console
+/usr/share/rvm/rubies/ruby-3.0.0/bin/ruby -I /usr/share/rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20241002-15800-34d3xk.rb extconf.rb
+checking for rb_io_path()... no
+checking for rb_io_descriptor()... no
+checking for rb_io_get_write_io()... yes
+checking for rb_io_closed_p()... no
+checking for rb_io_open_descriptor()... no
+checking for termios.h... yes
+checking for cfmakeraw() in termios.h... yes
+checking for sys/ioctl.h... yes
+checking for HAVE_RUBY_FIBER_SCHEDULER_H... no
+checking for rb_scheduler_timeout()... no
+creating Makefile
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.0.0/gems/io-console-0.7.2/ext/io/console
+make "DESTDIR=" clean
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.0.0/gems/io-console-0.7.2/ext/io/console
+make "DESTDIR="
+compiling console.c
+linking shared-object io/console.so
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.0.0/gems/io-console-0.7.2/ext/io/console
+make "DESTDIR=" install
+/usr/bin/install -m 0755 console.so ./.gem.20241002-15800-xc7wnr/io

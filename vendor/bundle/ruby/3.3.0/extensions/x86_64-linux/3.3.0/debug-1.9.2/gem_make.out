@@ -1,0 +1,19 @@
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.3.0/gems/debug-1.9.2/ext/debug
+/usr/share/rvm/rubies/ruby-3.3.0/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.3.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241007-18114-q7oiel sitelibdir\=./.gem.20241007-18114-q7oiel clean
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.3.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241007-18114-q7oiel sitelibdir\=./.gem.20241007-18114-q7oiel
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.3.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241007-18114-q7oiel sitelibdir\=./.gem.20241007-18114-q7oiel install
+/usr/bin/install -m 0755 debug.so ./.gem.20241007-18114-q7oiel/debug
+
+current directory: /home/habib/Documents/csv_validator/vendor/bundle/ruby/3.3.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20241007-18114-q7oiel sitelibdir\=./.gem.20241007-18114-q7oiel clean
