@@ -1,4 +1,9 @@
 require "active_support/core_ext/integer/time"
+# Enable serving of assets
+config.assets.js_compressor = :uglifier
+config.assets.css_compressor = :sassc
+config.assets.compile = false
+config.assets.digest = true
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.

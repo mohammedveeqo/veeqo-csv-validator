@@ -1,7 +1,6 @@
-# Use the official Ruby image
 FROM ruby:3.3.0
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   libpq-dev \
@@ -9,31 +8,29 @@ RUN apt-get update -qq && apt-get install -y \
   yarn \
   sqlite3 \
   imagemagick \
-  git \
-  && apt-get clean
+  git
 
 # Set environment variables
-ENV BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_APP_CONFIG=/usr/local/bundle \
-    RAILS_ENV=production
+ENV BUNDLE_PATH=/usr/local/bundle
+ENV RAILS_ENV=production
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy Gemfile and Gemfile.lock first for caching
+# Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock /app/
 
 # Install gems
 RUN bundle install --without development test
 
-# Copy the rest of the application code
+# Copy application code
 COPY . /app
 
-# Precompile assets (optional, for production environments)
+# Precompile assets
 RUN bundle exec rails assets:precompile
 
-# Expose port 3000 to access the Rails app
+# Expose port
 EXPOSE 3000
 
-# The command to run the application
+# Start the application
 CMD ["rails", "server", "-b", "0.0.0.0"]
