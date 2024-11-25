@@ -7,6 +7,8 @@ ruby "3.3.0"
 group :production do
   gem 'pg'
 end
+gem 'sassc-rails'
+gem 'webpacker'
 
 gem 'uglifier', '>= 1.3.0'
 
