@@ -310,7 +310,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   net-pop!
-  pg (~> 1.5.0)
+  pg (~> 1.5.9)
   puma (>= 5.0)
   rails (~> 7.1.2)
   selenium-webdriver

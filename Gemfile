@@ -4,7 +4,9 @@ ruby "3.3.0"
 gem 'net-pop', github: 'ruby/net-pop'
 
 
-gem 'pg', '~> 1.5.9'
+group :production do
+  gem 'pg'
+end
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
