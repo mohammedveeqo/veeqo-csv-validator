@@ -10,6 +10,7 @@ end
 gem 'sassc-rails'
 gem 'webpacker'
 
+
 gem 'uglifier', '>= 1.3.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
