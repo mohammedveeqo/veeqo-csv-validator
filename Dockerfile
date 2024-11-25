@@ -1,5 +1,9 @@
 FROM ruby:3.3.0
 
+ENV RAILS_MASTER_KEY=101ca01b64fe26ea91d8430ca70b7e96
+
+RUN bundle exec rails assets:precompile
+
 # Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
