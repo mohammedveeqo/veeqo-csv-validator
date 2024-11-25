@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ruby/net-pop.git
+  revision: e8d0afe2773b9eb6a23c39e9e437f6fc0fc7c733
+  specs:
+    net-pop (0.1.2)
+      net-protocol
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -149,13 +156,11 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     mini_mime (1.1.5)
-    minitest (5.25.1)
+    minitest (5.25.2)
     msgpack (1.7.5)
     mutex_m (0.3.0)
     net-imap (0.5.1)
       date
-      net-protocol
-    net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
       timeout
@@ -179,7 +184,7 @@ GEM
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
-    puma (6.4.3)
+    puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
@@ -293,6 +298,7 @@ PLATFORMS
   x86-linux-gnu
   x86-linux-musl
   x86_64-darwin
+  x86_64-linux
   x86_64-linux-gnu
   x86_64-linux-musl
 
@@ -303,6 +309,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  net-pop!
   pg
   puma (>= 5.0)
   rails (~> 7.1.2)
