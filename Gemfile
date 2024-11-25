@@ -77,5 +77,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'bootstrap', '~> 5.1.3' # For styling (optional)
 gem 'simple_form' # For easier form handling
