@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.require_master_key = true
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -15,7 +15,7 @@ Rails.application.configure do
   config.assets.css_compressor = :sassc
 
   
-    config.assets.js_compressor = Uglifier.new(harmony: true)
+# config.assets.js_compressor = :uglifier
   
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
