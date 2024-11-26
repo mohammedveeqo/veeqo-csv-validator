@@ -1,22 +1,11 @@
 module.exports = function (api) {
-  var validEnv = ['development', 'test', 'production'];
-  var currentEnv = api.env();
-  var isDevelopmentEnv = api.env('development');
-  var isProductionEnv = api.env('production');
-  var isTestEnv = api.env('test');
-
-  if (!validEnv.includes(currentEnv)) {
-    throw new Error(
-      'Please specify a valid `NODE_ENV` or `BABEL_ENV` environment variable. ' +
-        'Valid values are "development", "test", and "production". ' +
-        'Instead, received: ' +
-        JSON.stringify(currentEnv) +
-        '.'
-    );
-  }
+  const isDevelopmentEnv = api.env('development');
+  const isProductionEnv = api.env('production');
+  const isTestEnv = api.env('test');
 
   return {
     presets: [
+      // For Tests (Node.js environment)
       isTestEnv && [
         '@babel/preset-env',
         {
@@ -25,50 +14,28 @@ module.exports = function (api) {
           },
         },
       ],
+      // For Development & Production (Browser environment)
       (isProductionEnv || isDevelopmentEnv) && [
         '@babel/preset-env',
         {
           forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
-          modules: false,
-          exclude: ['transform-typeof-symbol'],
+          useBuiltIns: 'entry', // Polyfills based on usage
+          corejs: 3, // Polyfill using core-js version 3
+          modules: false, // Avoid transforming ES6 module syntax (Webpack handles it)
         },
       ],
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
       '@babel/plugin-syntax-dynamic-import',
-      isTestEnv && 'babel-plugin-dynamic-import-node',
-      '@babel/plugin-transform-destructuring',
-      [
-        '@babel/plugin-proposal-class-properties',
-        { loose: true },
-      ],
-      [
-        '@babel/plugin-proposal-object-rest-spread',
-        { useBuiltIns: true },
-      ],
-      [
-        '@babel/plugin-proposal-private-methods',
-        { loose: true },
-      ],
-      [
-        '@babel/plugin-proposal-private-property-in-object',
-        { loose: true },
-      ],
-      [
-        '@babel/plugin-transform-runtime',
-        {
-          helpers: true,
-          regenerator: true,
-          corejs: false,
-        },
-      ],
-      [
-        '@babel/plugin-transform-regenerator',
-        { async: false },
-      ],
+      // For modern JavaScript features
+      '@babel/plugin-proposal-class-properties',
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-proposal-private-methods',
+      '@babel/plugin-proposal-private-property-in-object',
+      // Optimizing helpers and polyfills
+      '@babel/plugin-transform-runtime',
+      '@babel/plugin-transform-regenerator',
     ].filter(Boolean),
   };
 };
