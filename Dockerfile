@@ -39,6 +39,19 @@ COPY . /app/
 RUN yarn install
 
 # Add necessary Webpack and Babel dependencies for Webpacker 5.x
-RUN yarn add webpack@4 webpack-cli@3 babel-loader@8.2.5 @babel/plugin-proposal-private-methods @babel/plugin-proposal-class-properties @babel/plugin-proposal-private-property-in-object --dev
+RUN yarn add webpack@4 webpack-cli@3 babel-loader@8.2.5 \
+    @babel/plugin-proposal-private-methods \
+    @babel/plugin-proposal-class-properties \
+    @babel/plugin-proposal-private-property-in-object --dev
 
-# Ensure Webpacker assets are compiled successfully
+# Precompile Webpacker assets
+RUN bundle exec rails webpacker:compile
+
+# Precompile Rails assets
+RUN bundle exec rails assets:precompile
+
+# Set the port that Puma will listen on
+EXPOSE 3000
+
+# Start the Rails server
+CMD ["rails", "server", "-b", "0.0.0.0"]
