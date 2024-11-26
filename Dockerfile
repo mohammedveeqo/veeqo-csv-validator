@@ -33,6 +33,10 @@ RUN bundle install --without development test
 # Copy the application code
 COPY . /app/
 
+# Install Webpack and dependencies
+RUN yarn install
+RUN yarn add webpack webpack-cli
+
 # Precompile assets
 RUN bundle exec rails assets:precompile
 
