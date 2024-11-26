@@ -34,11 +34,11 @@ RUN bundle install --without development test
 # Copy the application code
 COPY . /app/
 
-# Install Webpack and dependencies
+# Install Node.js dependencies
 RUN yarn install
 
-# Ensure Webpack 4.x for compatibility with Webpacker 5.x
-RUN yarn add webpack@4 webpack-cli@3 --dev
+# Add necessary Webpack dependencies for Webpacker 5.x
+RUN yarn add webpack@4 webpack-cli@3 babel-loader@8.2.5 --dev
 
 # Compile Webpacker assets
 RUN bundle exec rails webpacker:compile
