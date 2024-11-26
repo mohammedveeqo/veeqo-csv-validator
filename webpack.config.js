@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './app/javascript/packs/application.js', // Path to your entry file
+  entry: './app/javascript/packs/application.js', // Adjust to your app's entry point
   output: {
-    path: path.resolve(__dirname, 'public/packs'), // Output directory
+    path: path.resolve(__dirname, 'public/packs'), // Adjust to your output directory
     filename: 'bundle.js',
   },
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -21,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   },
-  node: false, // Disables all Node.js polyfills and mocks
+  node: false, // Disable all Node.js polyfills and mocks
   performance: {
     hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
   },
