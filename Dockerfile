@@ -4,6 +4,7 @@ FROM ruby:3.3.0
 ENV RAILS_MASTER_KEY=101ca01b64fe26ea91d8430ca70b7e96
 ENV BUNDLE_PATH=/usr/local/bundle
 ENV RAILS_ENV=production
+ENV NODE_ENV=production
 
 # Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
@@ -35,9 +36,14 @@ COPY . /app/
 
 # Install Webpack and dependencies
 RUN yarn install
-RUN yarn add webpack webpack-cli
 
-# Precompile assets
+# Ensure Webpack 4.x for compatibility with Webpacker 5.x
+RUN yarn add webpack@4 webpack-cli@3 --dev
+
+# Compile Webpacker assets
+RUN bundle exec rails webpacker:compile
+
+# Precompile Rails assets
 RUN bundle exec rails assets:precompile
 
 # Expose port
