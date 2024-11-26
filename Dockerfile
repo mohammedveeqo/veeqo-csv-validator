@@ -7,6 +7,9 @@ ENV RAILS_ENV=production
 ENV NODE_ENV=production
 ENV BUNDLE_PATH=/usr/local/bundle
 
+# Fix OpenSSL issue with Node.js
+ENV NODE_OPTIONS="--openssl-legacy-provider"
+
 # Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
     build-essential \
@@ -54,4 +57,4 @@ RUN bundle exec rails assets:precompile
 EXPOSE 3000
 
 # Start the Rails server
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

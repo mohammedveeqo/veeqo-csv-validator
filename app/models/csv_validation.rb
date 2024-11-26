@@ -1,5 +1,6 @@
 class CsvValidation < ApplicationRecord
-    serialize :validation_errors, JSON
+  serialize :validation_errors, coder: JSON
+
   
     validates :validation_errors, presence: true
   
