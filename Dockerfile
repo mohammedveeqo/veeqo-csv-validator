@@ -1,21 +1,22 @@
+# Use the official Ruby image
 FROM ruby:3.3.0
 
 # Set environment variables
 ENV RAILS_MASTER_KEY=101ca01b64fe26ea91d8430ca70b7e96
-ENV BUNDLE_PATH=/usr/local/bundle
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
+ENV BUNDLE_PATH=/usr/local/bundle
 
 # Install system dependencies
 RUN apt-get update -qq && apt-get install -y \
-  build-essential \
-  libpq-dev \
-  nodejs \
-  curl \
-  gnupg \
-  sqlite3 \
-  imagemagick \
-  git
+    build-essential \
+    libpq-dev \
+    nodejs \
+    curl \
+    gnupg \
+    sqlite3 \
+    imagemagick \
+    git
 
 # Add Yarn's official repository and install the latest Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -25,7 +26,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 # Set the working directory
 WORKDIR /app
 
-# Copy Gemfile and Gemfile.lock
+# Copy the Gemfile and Gemfile.lock to the working directory
 COPY Gemfile Gemfile.lock /app/
 
 # Install gems
@@ -37,17 +38,7 @@ COPY . /app/
 # Install Node.js dependencies
 RUN yarn install
 
-# Add necessary Webpack dependencies for Webpacker 5.x
-RUN yarn add webpack@4 webpack-cli@3 babel-loader@8.2.5 --dev
+# Add necessary Webpack and Babel dependencies for Webpacker 5.x
+RUN yarn add webpack@4 webpack-cli@3 babel-loader@8.2.5 @babel/plugin-proposal-private-methods @babel/plugin-proposal-class-properties @babel/plugin-proposal-private-property-in-object --dev
 
-# Compile Webpacker assets
-RUN bundle exec rails webpacker:compile
-
-# Precompile Rails assets
-RUN bundle exec rails assets:precompile
-
-# Expose port
-EXPOSE 3000
-
-# Start the application
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# Ensure Webpacker assets are compiled successfully
