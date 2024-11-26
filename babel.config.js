@@ -43,41 +43,31 @@ module.exports = function (api) {
       '@babel/plugin-transform-destructuring',
       [
         '@babel/plugin-proposal-class-properties',
-        {
-          loose: true,
-        },
+        { loose: true },
       ],
       [
         '@babel/plugin-proposal-object-rest-spread',
-        {
-          useBuiltIns: true,
-        },
+        { useBuiltIns: true },
       ],
       [
         '@babel/plugin-proposal-private-methods',
-        {
-          loose: true,
-        },
+        { loose: true },
       ],
       [
         '@babel/plugin-proposal-private-property-in-object',
-        {
-          loose: true,
-        },
+        { loose: true },
       ],
       [
         '@babel/plugin-transform-runtime',
         {
-          helpers: true, // Changed to `true` for better compatibility
-          regenerator: true, // Ensure async/await works properly
-          corejs: false, // Ensure no conflicts with `useBuiltIns`
+          helpers: true,
+          regenerator: true,
+          corejs: false,
         },
       ],
       [
         '@babel/plugin-transform-regenerator',
-        {
-          async: false,
-        },
+        { async: false },
       ],
     ].filter(Boolean),
   };
