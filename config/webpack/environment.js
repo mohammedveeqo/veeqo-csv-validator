@@ -1,3 +1,4 @@
-const { environment } = require('@rails/webpacker');
+const { environment } = require('@rails/webpacker')
 
-module.exports = environment;
+// Avoid adding invalid properties
+module.exports = environment
