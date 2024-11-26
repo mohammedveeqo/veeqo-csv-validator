@@ -53,8 +53,8 @@ RUN bundle exec rails webpacker:compile
 # Precompile Rails assets
 RUN bundle exec rails assets:precompile
 
-# Set the port that Puma will listen on
+# Expose the port (use the one Render assigns dynamically)
 EXPOSE 3000
 
 # Start the Rails server
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "${PORT}"]
