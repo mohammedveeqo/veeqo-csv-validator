@@ -1,15 +1,14 @@
-# Specifies the number of Puma workers to run. Each worker is a forked OS process.
-# Adjust the workers based on your CPU cores and memory constraints. Defaults to 2.
-workers Integer(ENV.fetch('WEB_CONCURRENCY', 2))
+# Adjust the number of Puma workers based on the environment.
+# Use multiple workers in production but disable workers in development to avoid macOS fork issues.
+workers Integer(ENV.fetch('WEB_CONCURRENCY', (ENV['RAILS_ENV'] == 'production' ? 2 : 0)))
 
-# Threads are specified per worker. Adjust the minimum and maximum threads based on your application's needs.
+# Threads are specified per worker. Adjust as needed.
 min_threads_count = Integer(ENV.fetch('RAILS_MIN_THREADS', 5))
 max_threads_count = Integer(ENV.fetch('RAILS_MAX_THREADS', 5))
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests.
-# Ensure this matches the port expected by Render (e.g., 10000).
-port ENV.fetch('PORT', 10000)
+port ENV.fetch('PORT', 3000)
 
 # Specifies the environment Puma will run in. Default is production.
 environment ENV.fetch('RAILS_ENV', 'production')
@@ -23,8 +22,8 @@ state_path ENV.fetch('STATEFILE', 'tmp/pids/puma.state')
 # Allow Puma to be restarted by the `bin/rails restart` command.
 plugin :tmp_restart
 
-# Preload the application for faster worker boot times.
-preload_app!
+# Preload the application for faster worker boot times, but disable it in development.
+preload_app! unless ENV.fetch('WEB_CONCURRENCY', '0').to_i.zero?
 
 # In development, increase worker timeout for debugging purposes.
 worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
