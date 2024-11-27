@@ -1,3 +1,4 @@
+
 # Adjust the number of Puma workers based on the environment.
 # Use multiple workers in production but disable workers in development to avoid macOS fork issues.
 workers Integer(ENV.fetch('WEB_CONCURRENCY', (ENV['RAILS_ENV'] == 'production' ? 2 : 0)))
