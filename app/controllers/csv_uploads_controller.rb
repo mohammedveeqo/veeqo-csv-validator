@@ -1,5 +1,3 @@
-require "csv"
-
 class CsvUploadsController < ApplicationController
   def index
     @errors = []
@@ -22,7 +20,7 @@ class CsvUploadsController < ApplicationController
         CsvValidation.create(validation_errors: @errors.to_json)
         redirect_to show_validation_errors_csv_uploads_path
       else
-        redirect_to success_path, notice: "CSV processed successfully."
+        redirect_to csv_uploads_path, notice: "CSV processed successfully."
       end
     else
       flash[:error] = 'Only CSV files are allowed.'
