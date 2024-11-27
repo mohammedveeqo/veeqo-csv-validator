@@ -8,7 +8,7 @@ development:
   <<: *default
   database: myapp_development
   username: islamhm # Your PostgreSQL username
-  password: # Leave blank if no password is required
+  password: your_password
   host: localhost
   port: 5432
 

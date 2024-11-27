@@ -15,6 +15,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_122221) do
   enable_extension "plpgsql"
 
   create_table "csv_uploads", force: :cascade do |t|
+    t.string "file_name"
+    t.string "upload_type"
+    t.text "validation_errors"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
