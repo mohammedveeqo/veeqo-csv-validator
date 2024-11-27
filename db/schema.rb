@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_20_122221) do
     t.datetime "updated_at", null: false
   end
 
+
   create_table "csv_validations", force: :cascade do |t|
     t.text "validation_errors"
     t.datetime "created_at", null: false
