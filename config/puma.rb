@@ -9,7 +9,7 @@ max_threads_count = Integer(ENV.fetch('RAILS_MAX_THREADS', 5))
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests.
-port ENV.fetch('PORT', 3000)
+port Integer(ENV.fetch('PORT', 3000))
 
 # Specifies the environment Puma will run in. Default is production.
 environment ENV.fetch('RAILS_ENV', 'production')
