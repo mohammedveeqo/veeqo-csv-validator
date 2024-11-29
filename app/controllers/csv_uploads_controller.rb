@@ -1,3 +1,5 @@
+require 'csv' # Ensure CSV is loaded
+
 class CsvUploadsController < ApplicationController
   def index
     @errors = []
@@ -12,15 +14,25 @@ class CsvUploadsController < ApplicationController
       redirect_to csv_uploads_path and return
     end
 
+    # Check if the file is a CSV
     if uploaded_file.original_filename.ends_with?('.csv')
-      csv_data = CSV.parse(uploaded_file.read, headers: true)
-      @errors = validate_csv(csv_data, type)
+      begin
+        csv_data = CSV.parse(uploaded_file.read, headers: true)
+        @errors = validate_csv(csv_data, type)
 
-      if @errors.any?
-        CsvValidation.create(validation_errors: @errors.to_json)
-        redirect_to show_validation_errors_csv_uploads_path
-      else
-        redirect_to csv_uploads_path, notice: "CSV processed successfully."
+        # Handle errors or successful CSV processing
+        if @errors.any?
+          CsvValidation.create(validation_errors: @errors.to_json)
+          flash[:error] = 'There were validation errors in your CSV file.'
+          redirect_to show_validation_errors_csv_uploads_path
+        else
+          flash[:notice] = "CSV processed successfully."
+          redirect_to csv_uploads_path
+        end
+      rescue => e
+        # Handle any unexpected errors (e.g., CSV parsing errors)
+        flash[:error] = "An error occurred while processing the file: #{e.message}"
+        redirect_to csv_uploads_path
       end
     else
       flash[:error] = 'Only CSV files are allowed.'
