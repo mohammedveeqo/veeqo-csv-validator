@@ -18,13 +18,13 @@ Rails.application.configure do
   config.assets.digest = true   # Essential for proper cache busting
 
   # Enable serving static files from the `/public` folder by default.
-  config.public_file_server.enabled = true   # Allow serving static assets
+  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present? || Rails.env.production?
 
   # Enable caching in production
   config.action_controller.perform_caching = true
 
   # Log level for production.
-  config.log_level = :debug
+  config.log_level = :info
   config.log_tags = [:request_id]
 
   # Use default logging formatter.
@@ -35,9 +35,6 @@ Rails.application.configure do
 
   # Preload assets to improve initial loading speed.
   config.assets.preload = true
-
-  # Enable serving of static files (useful in cloud environments).
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Ensure requests are served over SSL (optional).
   # config.force_ssl = true

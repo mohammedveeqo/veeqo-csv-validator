@@ -9,6 +9,7 @@ group :production do
 end
 gem 'sassc-rails'
 gem 'webpacker'
+gem 'terser'
 
 
 gem 'uglifier', '>= 1.3.0'
