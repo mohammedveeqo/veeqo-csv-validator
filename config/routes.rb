@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :csv_uploads, only: [:index, :create] do
     collection do
-      get :validation_errors, action: :show_validation_errors
+      get :show_validation_errors, action: :show_validation_errors
     end
   end
 end
+
