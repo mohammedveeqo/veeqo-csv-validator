@@ -10,6 +10,7 @@ development:
   username: islamhm # Your PostgreSQL username
   password: your_password
   host: localhost
+  url: <%= ENV['DATABASE_URL'] %>
   port: 5432
 
 test:
