@@ -19,7 +19,7 @@ class OrderCheck
     "number_of_lines" => [],
     "customer_note" => [],
     "notes" => [],
-    "due_date" => [],
+    "due_date" => ["is_date_valid?"],
     "tags" => [],
     "tracking_number" => [],
     "product_title" => [],
@@ -76,11 +76,11 @@ class OrderCheck
     REQUIRED_HEADERS.each do |col, validators|
       value = row[col]
       if value.nil? || value.strip.empty?
-        errors << "Row #{row_number}: #{col} can't be blank."
+        errors << "#{row_error(row_number, col)} can't be blank."
       else
         validators.each do |validator|
           unless send(validator, value)
-            errors << "Row #{row_number}: #{col} is invalid."
+            errors << generate_error_message(row_number, col, value, validator)
           end
         end
       end
@@ -93,9 +93,34 @@ class OrderCheck
 
       validators.each do |validator|
         unless send(validator, value)
-          errors << "Row #{row_number}: #{col} is invalid."
+          errors << generate_error_message(row_number, col, value, validator)
         end
       end
+    end
+  end
+
+  def row_error(row_number, col)
+    "Row #{row_number}: #{col}"
+  end
+
+  def generate_error_message(row_number, col, value, validator)
+    case validator
+    when "is_integer?"
+      return "#{row_error(row_number, col)} should be an integer, but got '#{value}'. Example: '123'."
+    when "is_float?"
+      return "#{row_error(row_number, col)} should be a valid number with decimals, but got '#{value}'. Example: '99.99'."
+    when "is_country_code_valid?"
+      return "#{row_error(row_number, col)} should be a valid country code, but got '#{value}'. Example: 'US', 'CA'."
+    when "is_email_valid?"
+      return "#{row_error(row_number, col)} should be a valid email address, but got '#{value}'. Example: 'email@example.com'."
+    when "is_bool?"
+      return "#{row_error(row_number, col)} should be 'true' or 'false', but got '#{value}'."
+    when "is_status_valid?"
+      return "#{row_error(row_number, col)} should be one of 'pending', 'shipped', 'delivered', or 'cancelled', but got '#{value}'."
+    when "is_date_valid?"
+      return "#{row_error(row_number, col)} should be a valid date in 'YYYY-MM-DD' format, but got '#{value}'."
+    else
+      return "#{row_error(row_number, col)} is invalid with value '#{value}'."
     end
   end
 
@@ -109,8 +134,29 @@ class OrderCheck
   end
 
   def is_country_code_valid?(code)
-    ["US", "CA", "MX"].include?(code.upcase) # Replace with actual country code validation logic
+    valid_country_codes = [
+      "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", 
+      "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", 
+      "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", 
+      "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", 
+      "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FM", "FO", "FR", "GA", "GB", 
+      "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GT", "GU", "GW", 
+      "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", 
+      "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", 
+      "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", 
+      "MD", "ME", "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", 
+      "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", 
+      "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PT", 
+      "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", 
+      "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", 
+      "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TZ", "UA", 
+      "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN", "VU", "WF", "WS", "YE", 
+      "YT", "ZA", "ZM", "ZW"
+    ]
+    
+    valid_country_codes.include?(code.upcase)
   end
+  
 
   def is_email_valid?(email)
     /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.match?(email)
@@ -121,7 +167,11 @@ class OrderCheck
   end
 
   def is_status_valid?(status)
-    # Define valid statuses
     ["pending", "shipped", "delivered", "cancelled"].include?(status)
+  end
+
+  def is_date_valid?(date)
+    # Check if the date is in 'YYYY-MM-DD' format
+    /\A\d{4}-\d{2}-\d{2}\z/.match?(date)
   end
 end
