@@ -22,9 +22,12 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE_NAME"] %>
-  username: <%= ENV["DATABASE_USERNAME"] %>
-  password: <%= ENV["DATABASE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_HOST"] %>
-  url: <%= ENV['DATABASE_URL'] %>
-  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: veeqocsvvalidator
+  username: veeqocsvvalidator_user
+  password: njCaDal5pnJF7MSN2UlLSyMHc0ShWPVh
+  host: dpg-ctp7r4tds78s73cvv390-a.oregon-postgres.render.com
+  port: 5432
+
