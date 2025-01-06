@@ -22,8 +22,9 @@ test:
 
 production:
   <<: *default
-  database: veeqocsvvalidator
-  username: veeqocsvvalidator_user
-  password: njCaDal5pnJF7MSN2UlLSyMHc0ShWPVh
-  host: dpg-ctp74tds78s73cvv390-a
-  port: 5432
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  url: <%= ENV['DATABASE_URL'] %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
