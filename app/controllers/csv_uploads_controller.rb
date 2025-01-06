@@ -1,4 +1,5 @@
 class CsvUploadsController < ApplicationController
+  require 'csv'
   def index
     @errors = []
   end
