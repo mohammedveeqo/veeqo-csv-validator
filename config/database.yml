@@ -27,5 +27,4 @@ production:
   username: veeqocsvvalidator_user
   password: njCaDal5pnJF7MSN2UlLSyMHc0ShWPVh
   host: dpg-ctp74tds78s73cvv390-a
-  url: postgresql://veeqocsvvalidator_user:njCaDal5pnJF7MSN2UlLSyMHc0ShWPVh@dpg-ctp7r4tds78s73cvv390-a/veeqocsvvalidator
   port: 5432
